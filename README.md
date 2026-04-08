@@ -60,4 +60,17 @@
 2. **Implement Confidence Thresholding:** Route low-confidence predictions (`0.3 < prob < 0.7`) to human moderators to reduce false positives/negatives.
 3. **Continuous Monitoring:** Track drift in comment toxicity distribution as user base grows; retrain quarterly or upon performance decay.
 
-## 📁 Project Structure
+## 🚀 Getting Started
+```bash
+# 1. Clone repository
+git clone https://github.com/your-username/Ecommerce-Toxic-Comment-Detector.git
+cd Ecommerce-Toxic-Comment-Detector
+
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Download spaCy English model
+python -m spacy download en_core_web_sm
+
+# 4. Launch Jupyter Notebook
+jupyter notebook notebooks/wikishop_toxic_comment_classifier.ipynb
