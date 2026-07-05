@@ -35,20 +35,20 @@
    - Handled class imbalance via `class_weight='balanced'` and threshold optimization
    - Analyzed text length distributions, word clouds, and lexical patterns
 2. **Traditional NLP Baselines**  
-   - `TF-IDF` vectorization (unigrams, stopword filtering)
+   - `TF-IDF` vectorization (unigrams + bigrams, stopword filtering)
    - Models: `LogisticRegression`, `XGBoost`
    - Hyperparameter tuning via `RandomizedSearchCV`
    - **Threshold tuning** on validation probabilities to maximize F1
-3. **Deep Learning / Transformers**  
+3. **Transformer-based Embeddings**  
    - `unitary/toxic-bert` pretrained model
    - Extracted `[CLS]` embeddings for a stratified 1% subset (~1,000 samples) due to compute constraints
-   - Fine-tuned `LogisticRegression` on top of BERT embeddings
+   - Trained `LogisticRegression` on frozen BERT [CLS] embeddings
 
 ## 📈 Results & Model Performance
 | Model Approach | Validation F1 | Test F1 | Notes |
 |:---------------|:-------------:|:-------:|:------|
-| TF-IDF + LogisticRegression (default threshold) | 0.7501 | 0.7479 | Meets baseline requirement |
-| TF-IDF + LogisticRegression (**tuned threshold**) | - | **~0.763** | +1.5% gain via threshold optimization |
+| TF-IDF + LogisticRegression (default threshold) | 0.7499 | 0.7495 | Meets baseline requirement |
+| TF-IDF + LogisticRegression (**tuned threshold**) | - | **~0.7664** | +2.2% gain via threshold optimization |
 | Toxic-BERT + LogisticRegression (1% data) | 0.8939 | **0.8333** | Superior performance with minimal data |
 
 ✅ **Final Recommendation:** `Toxic-BERT` pipeline for production due to higher robustness, contextual understanding, and significantly better F1-score. TF-IDF + LR serves as a lightweight, interpretable fallback for low-resource environments.
@@ -73,4 +73,4 @@ pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 
 # 4. Launch Jupyter Notebook
-jupyter notebook notebooks/wikishop_toxic_comment_classifier.ipynb
+jupyter notebook notebooks/ecommerce_toxic_comment_detector.ipynb
